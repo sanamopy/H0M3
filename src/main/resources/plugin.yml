@@ -1,0 +1,8 @@
+name: H0M3
+version: '1.0.0'
+main: com.sanamo.h0M3.H0M3
+api-version: '1.21'
+prefix: AS
+authors: [ KarterSanamo ]
+description: Smelt ores automatically when mined and give the player the smelted item.
+website: logix.host
