@@ -69,7 +69,7 @@ public class HomeCommand extends CoreCommand {
         if (context.getArgCount() == 1) {
             String partial = context.getArg(0, "").toLowerCase();
             Map<String, Home> homes = homeManager.getHomes(player.getUniqueId());
-            if (!homes.isEmpty()) {
+            if (homes != null) {
                 List<String> matches = new ArrayList<>();
 
                 for (Home home : homes.values()) {
