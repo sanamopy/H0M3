@@ -192,7 +192,8 @@ public class HomeManager {
     }
 
     public int getHomeCount(UUID uuid) {
-        return homes.get(uuid).size();
+        Map<String, Home> playerHomes = homes.get(uuid);
+        return playerHomes != null ? playerHomes.size() : 0;
     }
 
     public void update(Home home) {
