@@ -1,11 +1,11 @@
 package com.sanamo.h0M3.guis;
 
 import com.sanamo.h0M3.H0M3;
-import com.sanamo.h0M3.api.LocationUtil;
 import com.sanamo.h0M3.api.chat.ChatFormat;
 import com.sanamo.h0M3.api.chat.ColorUtil;
 import com.sanamo.h0M3.api.gui.GUI;
 import com.sanamo.h0M3.api.item.ItemBuilder;
+import com.sanamo.h0M3.api.util.LocationUtil;
 import com.sanamo.h0M3.managers.HomeManager;
 import com.sanamo.h0M3.models.Home;
 import org.bukkit.Location;
@@ -135,6 +135,15 @@ public class ManageHomeGUI extends GUI {
                 .build();
         setItem(18, backButtonItem);
         setClickHandler(18, event -> backButton());
+
+        // Home information
+        List<String> lines = homeManager.getInformationLines(home);
+        ItemStack homeInformationItem = new ItemBuilder(Material.BOOK)
+                .name(ColorUtil.translate("&6Home Information"))
+                .lore(lines)
+                .build();
+        setItem(22, homeInformationItem);
+        setClickHandler(22, event -> homeInformation());
     }
 
     private void changeName() {
@@ -248,5 +257,9 @@ public class ManageHomeGUI extends GUI {
         player.closeInventory();
         HomesGUI homesGUI = new HomesGUI(homeManager, player);
         homesGUI.open(player);
+    }
+
+    private void homeInformation() {
+        homeManager.sendInfo(home, player);
     }
 }

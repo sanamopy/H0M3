@@ -35,3 +35,7 @@ commands:
     description: Edits a player's home information
     usage: /<command> <home>
     aliases: [ ]
+  homeinfo:
+    description: Sends information on a player's home
+    usage: /<command> <home>
+    aliases: [ ]

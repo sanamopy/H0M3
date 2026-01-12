@@ -1,11 +1,9 @@
 package com.sanamo.h0M3.guis;
 
-import com.sanamo.h0M3.api.chat.ChatFormat;
 import com.sanamo.h0M3.api.chat.ColorUtil;
 import com.sanamo.h0M3.api.gui.GUI;
 import com.sanamo.h0M3.api.item.ItemBuilder;
 import com.sanamo.h0M3.managers.HomeManager;
-import com.sanamo.h0M3.managers.TeleportManager;
 import com.sanamo.h0M3.models.Home;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -107,9 +105,8 @@ public class HomesGUI extends GUI {
         else if (clickType == ClickType.LEFT || clickType == ClickType.SHIFT_LEFT) {
             Home home = homeManager.getHome(player.getUniqueId(), homeName);
             clicker.closeInventory();
-            if (!TeleportManager.teleportToLocation(clicker, home.getLocation())) {
-                clicker.sendMessage(ChatFormat.error("Failed to teleport! The warp location may be invalid."));
-            }
+            home.teleport();
+            homeManager.update(home);
         }
     }
 }

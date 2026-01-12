@@ -14,17 +14,22 @@ public class Home {
     private List<String> lore;
     private Material material;
     private Location location;
+    private final long createdAt;
+    private long lastUsedAt;
 
-    public Home(String id, Player owner, String displayName, List<String> lore, Material material, Location location) {
+    public Home(String id, Player owner, String displayName, List<String> lore, Material material, Location location, long createdAt, long lastUsedAt) {
         this.owner = owner;
         this.displayName = displayName;
         this.lore = lore;
         this.material = material;
         this.location = location;
         this.id = id;
+        this.createdAt = createdAt;
+        this.lastUsedAt = lastUsedAt;
     }
 
     public void teleport() {
+        setLastUsedAt(System.currentTimeMillis());
         TeleportManager.teleportToLocation(owner, location);
     }
 
@@ -50,7 +55,6 @@ public class Home {
 
     public void setLocation(Location newLocation) {
         location = newLocation;
-
     }
 
     public Player getOwner() {
@@ -79,5 +83,17 @@ public class Home {
                 ", material=" + (material != null ? material.toString() : "null") +
                 ", location=" + (location != null ? location.getBlockX() + "," + location.getBlockY() + "," + location.getBlockZ() : "null") +
                 '}';
+    }
+
+    public long getCreatedAt() {
+        return createdAt;
+    }
+
+    public long getLastUsedAt() {
+        return lastUsedAt;
+    }
+
+    public void setLastUsedAt(long timestamp) {
+        this.lastUsedAt = timestamp;
     }
 }

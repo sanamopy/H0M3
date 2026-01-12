@@ -1,9 +1,9 @@
 package com.sanamo.h0M3.commands;
 
-import com.sanamo.h0M3.api.LocationUtil;
 import com.sanamo.h0M3.api.chat.ChatFormat;
 import com.sanamo.h0M3.api.command.CommandContext;
 import com.sanamo.h0M3.api.command.CoreCommand;
+import com.sanamo.h0M3.api.util.LocationUtil;
 import com.sanamo.h0M3.managers.HomeManager;
 import com.sanamo.h0M3.models.Home;
 import org.bukkit.Location;

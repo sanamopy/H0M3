@@ -1,6 +1,9 @@
 package com.sanamo.h0M3.managers;
 
+import com.sanamo.h0M3.api.chat.ColorUtil;
 import com.sanamo.h0M3.api.config.ConfigFile;
+import com.sanamo.h0M3.api.util.LocationUtil;
+import com.sanamo.h0M3.api.util.TimeUtil;
 import com.sanamo.h0M3.models.Home;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -9,10 +12,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class HomeManager {
 
@@ -64,13 +64,18 @@ public class HomeManager {
                 continue;
             }
 
+            long createdAt = homeSection.getLong("created-at");
+            long lastUsedAt = homeSection.getLong("last-used-at");
+
             Home home = new Home(
                     homeId,
                     owner,
                     displayName,
                     lore,
                     material,
-                    location
+                    location,
+                    createdAt,
+                    lastUsedAt
             );
 
             playerHomes.put(homeId, home);
@@ -97,6 +102,8 @@ public class HomeManager {
             file.getConfig().set(path + ".material", home.getMaterial().name());
             file.getConfig().set(path + ".lore", home.getLore());
             file.getConfig().set(path + ".location", home.getLocation());
+            file.getConfig().set(path + ".created-at", home.getCreatedAt());
+            file.getConfig().set(path + ".last-used-at", home.getLastUsedAt());
         }
 
         file.save();
@@ -213,5 +220,34 @@ public class HomeManager {
         ).equals(homeName);
     }
 
+    public void sendInfo(Home home, Player player) {
+        player.sendMessage(ColorUtil.translate("&8&l&m----------------------------------------"));
+        player.sendMessage(ColorUtil.translate("&4&lHome Information"));
+        player.sendMessage(ColorUtil.translate("&4&l"));
+        List<String> lines = getInformationLines(home);
+        for (String line : lines) {
+            player.sendMessage(ColorUtil.translate(line));
+        }
+        player.sendMessage(ColorUtil.translate("&8&l&m----------------------------------------"));
+    }
 
+    public List<String> getInformationLines(Home home) {
+        List<String> lines = new ArrayList<>();
+
+        lines.add(ColorUtil.translate("&7Name - " + home.getDisplayName()));
+        lines.add(ColorUtil.translate("&7Created At - " + TimeUtil.formatUnix(home.getCreatedAt())));
+        lines.add(ColorUtil.translate("&7Last Used - " + TimeUtil.formatUnix(home.getLastUsedAt())));
+        lines.add(ColorUtil.translate("&7Material - " + home.getMaterial().name()));
+        lines.add(ColorUtil.translate("&7Location - " + LocationUtil.format(home.getLocation())));
+        if (home.getLore().isEmpty()) {
+            lines.add(ColorUtil.translate("&7Lore - None"));
+        } else {
+            lines.add(ColorUtil.translate("&7Lore - "));
+            for (String loreLine : home.getLore()) {
+                lines.add(ColorUtil.translate("&8» &7" + loreLine));
+            }
+        }
+
+        return lines;
+    }
 }

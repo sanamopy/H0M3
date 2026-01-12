@@ -58,6 +58,7 @@ public class HomeCommand extends CoreCommand {
             return true;
         }
         home.teleport();
+        homeManager.update(home);
 
         return true;
     }

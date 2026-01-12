@@ -1,10 +1,10 @@
 package com.sanamo.h0M3.managers;
 
 import com.sanamo.h0M3.H0M3;
-import com.sanamo.h0M3.api.LocationUtil;
 import com.sanamo.h0M3.api.chat.ChatFormat;
 import com.sanamo.h0M3.api.particles.ParticleUtil;
 import com.sanamo.h0M3.api.sound.SoundUtil;
+import com.sanamo.h0M3.api.util.LocationUtil;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -22,16 +22,9 @@ public class TeleportManager {
     private static final HashMap<UUID, Location> locationTeleports = new HashMap<>();
     private static final HashMap<UUID, BukkitTask> tasks = new HashMap<>();
 
-    public static boolean teleportToPlayer(Player player, Player target) {
-        playerTeleports.put(player.getUniqueId(), target.getUniqueId());
-        startTeleportCountdown(player, target.getLocation(), target);
-        return true;
-    }
-
-    public static boolean teleportToLocation(Player player, Location toLocation) {
+    public static void teleportToLocation(Player player, Location toLocation) {
         locationTeleports.put(player.getUniqueId(), toLocation);
         startTeleportCountdown(player, toLocation, null);
-        return true;
     }
 
     private static void startTeleportCountdown(Player player, Location toLocation, Player target) {

@@ -1,11 +1,11 @@
 package com.sanamo.h0M3.commands;
 
-import com.sanamo.h0M3.api.LocationUtil;
 import com.sanamo.h0M3.api.chat.ChatFormat;
 import com.sanamo.h0M3.api.command.CommandContext;
 import com.sanamo.h0M3.api.command.CoreCommand;
 import com.sanamo.h0M3.api.command.annotations.PlayerOnly;
 import com.sanamo.h0M3.api.sound.SoundUtil;
+import com.sanamo.h0M3.api.util.LocationUtil;
 import com.sanamo.h0M3.managers.HomeManager;
 import com.sanamo.h0M3.models.Home;
 import org.bukkit.Location;
@@ -74,7 +74,9 @@ public class SetHomeCommand extends CoreCommand {
                     name,
                     new ArrayList<>(),
                     Material.CHEST,
-                    location
+                    location,
+                    System.currentTimeMillis(),
+                    0
             );
 
             homeManager.addHome(player.getUniqueId(), home);
