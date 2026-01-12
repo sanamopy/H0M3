@@ -3,6 +3,7 @@ package com.sanamo.h0M3.commands;
 import com.sanamo.h0M3.api.chat.ChatFormat;
 import com.sanamo.h0M3.api.command.CommandContext;
 import com.sanamo.h0M3.api.command.CoreCommand;
+import com.sanamo.h0M3.api.command.annotations.PlayerOnly;
 import com.sanamo.h0M3.api.sound.SoundUtil;
 import com.sanamo.h0M3.managers.HomeManager;
 import com.sanamo.h0M3.models.Home;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@PlayerOnly
 public class DeleteHomeCommand extends CoreCommand {
 
     private final HomeManager homeManager;
