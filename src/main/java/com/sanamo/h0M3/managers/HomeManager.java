@@ -212,4 +212,6 @@ public class HomeManager {
                 ChatColor.translateAlternateColorCodes('&', homeName)
         ).equals(homeName);
     }
+
+
 }

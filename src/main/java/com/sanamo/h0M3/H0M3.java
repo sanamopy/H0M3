@@ -4,10 +4,10 @@ import com.sanamo.h0M3.api.command.CommandManager;
 import com.sanamo.h0M3.api.gui.GUIManager;
 import com.sanamo.h0M3.api.logging.CoreLogger;
 import com.sanamo.h0M3.api.logging.LogLevel;
-import com.sanamo.h0M3.commands.DeleteHomeCommand;
-import com.sanamo.h0M3.commands.HomeCommand;
-import com.sanamo.h0M3.commands.HomesCommand;
-import com.sanamo.h0M3.commands.SetHomeCommand;
+import com.sanamo.h0M3.commands.*;
+import com.sanamo.h0M3.listeners.PlayerJoinListener;
+import com.sanamo.h0M3.listeners.PlayerQuitListener;
+import com.sanamo.h0M3.listeners.TeleportMoveListener;
 import com.sanamo.h0M3.managers.ChatInputManager;
 import com.sanamo.h0M3.managers.HomeManager;
 import org.bukkit.Bukkit;
@@ -62,9 +62,13 @@ public final class H0M3 extends JavaPlugin {
         commandManager.registerCommand(new DeleteHomeCommand(homeManager));
         commandManager.registerCommand(new SetHomeCommand(homeManager));
         commandManager.registerCommand(new HomesCommand(homeManager));
+        commandManager.registerCommand(new RenameHomeCommand(homeManager));
     }
 
     private void registerListeners() {
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(homeManager), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(homeManager), this);
+        Bukkit.getPluginManager().registerEvents(new TeleportMoveListener(), this);
     }
 
     private void loadHomes() {

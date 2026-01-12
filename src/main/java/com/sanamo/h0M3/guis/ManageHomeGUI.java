@@ -8,6 +8,7 @@ import com.sanamo.h0M3.api.gui.GUI;
 import com.sanamo.h0M3.api.item.ItemBuilder;
 import com.sanamo.h0M3.managers.HomeManager;
 import com.sanamo.h0M3.models.Home;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -142,12 +143,13 @@ public class ManageHomeGUI extends GUI {
                 player,
                 "&ePlease type the new name for your home",
                 input -> {
+                    String oldName = home.getDisplayName();
                     if (homeManager.isValidHomeName(input)) {
                         player.sendMessage(ChatFormat.error("That is not a valid home name"));
                     } else {
                         this.home.setDisplayName(input);
                         homeManager.update(home);
-                        player.sendMessage(ChatFormat.info("Successfully updated your home's name"));
+                        player.sendMessage(ChatFormat.info("Successfully changed your home's name (" + oldName + " → " + input + ")"));
                     }
                     ManageHomeGUI manageHomeGUI = new ManageHomeGUI(homeManager, home, player);
                     manageHomeGUI.open(player);
@@ -163,12 +165,13 @@ public class ManageHomeGUI extends GUI {
                 "&ePlease type the name of the new material for your home (EX: DIAMOND_BLOCK, GRASS, STONE, etc.)",
                 input -> {
                     Material newMaterial = Material.getMaterial(input);
+                    Material oldMaterial = home.getMaterial();
                     if (newMaterial == null) {
                         player.sendMessage(ChatFormat.error("Failed to grab the material by that name"));
                     } else {
                         this.home.setMaterial(newMaterial);
                         homeManager.update(home);
-                        player.sendMessage(ChatFormat.info("Successfully updated your home's material"));
+                        player.sendMessage(ChatFormat.info("Successfully updated your home's material (" + oldMaterial.name() + " → " + newMaterial.name() + ")"));
                     }
                     ManageHomeGUI manageHomeGUI = new ManageHomeGUI(homeManager, home, player);
                     manageHomeGUI.open(player);
@@ -201,7 +204,7 @@ public class ManageHomeGUI extends GUI {
 
                     this.home.setLore(lore);
                     homeManager.update(home);
-                    player.sendMessage(ChatFormat.info("Successfully updated your home's lore"));
+                    player.sendMessage(ChatFormat.info("Successfully updated your home's lore to " + lore.size() + " lines"));
 
                     ManageHomeGUI manageHomeGUI = new ManageHomeGUI(homeManager, home, player);
                     manageHomeGUI.open(player);
@@ -213,10 +216,11 @@ public class ManageHomeGUI extends GUI {
 
     private void changeLocation() {
         this.home.setLocation(player.getLocation());
+        Location oldLocation = home.getLocation();
         homeManager.update(home);
         ManageHomeGUI manageHomeGUI = new ManageHomeGUI(homeManager, home, player);
         manageHomeGUI.open(player);
-        player.sendMessage(ChatFormat.info("Successfully updated your home's location"));
+        player.sendMessage(ChatFormat.info("Successfully updated your home's location (" + LocationUtil.format(oldLocation) + " → " + LocationUtil.format(player.getLocation()) + ")"));
     }
 
     private void deleteHome() {
@@ -226,8 +230,9 @@ public class ManageHomeGUI extends GUI {
                 "&c&lWARNING: Are you sure you want to delete your home? This action is IRREVERSIBLE\n&7Type '&aConfirm&7' to confirm",
                 input -> {
                     if (input.equalsIgnoreCase("confirm")) {
-                        homeManager.deleteHome(player.getUniqueId(), home.getDisplayName());
-                        player.sendMessage(ChatFormat.info("Successfully deleted your home"));
+                        String name = home.getDisplayName();
+                        homeManager.deleteHome(player.getUniqueId(), name);
+                        player.sendMessage(ChatFormat.info("Successfully deleted your home " + name));
                         HomesGUI homesGUI = new HomesGUI(homeManager, player);
                         homesGUI.open(player);
                     } else {

@@ -23,3 +23,7 @@ commands:
     description: Shows all of the player's homes
     usage: /<command>
     aliases: [ ]
+  renamehome:
+    description: Renames a player's home
+    usage: /<command> <name> <new_name>
+    aliases: [ ]
