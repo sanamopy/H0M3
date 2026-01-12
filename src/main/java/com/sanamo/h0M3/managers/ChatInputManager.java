@@ -30,7 +30,7 @@ public class ChatInputManager implements Listener {
 
         // Send prompt
         player.sendMessage(ColorUtil.translate(prompt));
-        player.sendMessage(ColorUtil.translate("&7Type &ccancel &7to cancel."));
+        player.sendMessage(ColorUtil.translate("&7Type '&cCancel&7' to cancel"));
 
         // Store session
         activeSessions.put(uuid, new ChatInputSession(handler, cancelHandler));
