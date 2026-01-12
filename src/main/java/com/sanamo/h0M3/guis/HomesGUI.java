@@ -48,7 +48,7 @@ public class HomesGUI extends GUI {
     public void build() {
         Map<String, Home> homes = homeManager.getHomes(player.getUniqueId());
 
-        if (homes.isEmpty()) {
+        if (homes == null || homes.isEmpty()) {
             setItem(4, new ItemBuilder(Material.BARRIER)
                     .name(ColorUtil.translate("&cNo Homes"))
                     .lore(ColorUtil.translate("&7You have no homes created yet."))

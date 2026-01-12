@@ -59,15 +59,17 @@ public class DeleteHomeCommand extends CoreCommand {
         if (context.getArgCount() == 1) {
             String partial = context.getArg(0, "").toLowerCase();
             Map<String, Home> homes = homeManager.getHomes(player.getUniqueId());
-            List<String> matches = new ArrayList<>();
+            if (homes != null) {
+                List<String> matches = new ArrayList<>();
 
-            for (Home home : homes.values()) {
-                if (home.getDisplayName().toLowerCase().startsWith(partial)) {
-                    matches.add(home.getDisplayName());
+                for (Home home : homes.values()) {
+                    if (home.getDisplayName().toLowerCase().startsWith(partial)) {
+                        matches.add(home.getDisplayName());
+                    }
                 }
-            }
 
-            return matches;
+                return matches;
+            }
         }
         return new ArrayList<>();
     }

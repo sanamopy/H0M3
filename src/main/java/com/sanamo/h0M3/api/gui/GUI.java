@@ -1,5 +1,6 @@
 package com.sanamo.h0M3.api.gui;
 
+import com.sanamo.h0M3.H0M3;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -51,7 +52,7 @@ public class GUI {
     public void open(Player player) {
         if (player != null) {
             player.openInventory(inventory);
-            GUIManager guiM = GUIManager.getInstance();
+            GUIManager guiM = H0M3.getInstance().getGuiManager();
             if (guiM == null) {
                 return;
             }

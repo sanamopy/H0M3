@@ -8,7 +8,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class CoreCommand {
@@ -64,7 +63,8 @@ public abstract class CoreCommand {
             return onExecute(context);
         } catch (Exception e) {
             sender.sendMessage(ChatFormat.error("An error occurred while executing this command."));
-            H0M3.getLog().severe("An error occurred while executing the command " + getName() + Arrays.toString(e.getStackTrace()));
+            H0M3.getLog().severe("An error occurred while executing the command " + getName());
+            e.printStackTrace();
             return true;
         }
     }

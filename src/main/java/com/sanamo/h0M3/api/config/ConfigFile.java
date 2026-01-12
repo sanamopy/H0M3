@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.util.Arrays;
 
 public class ConfigFile {
 
@@ -37,8 +36,8 @@ public class ConfigFile {
         try {
             config.save(file);
         } catch (IOException e) {
-            plugin.getLogger().severe("Could not save config file " + fileName);
-            H0M3.getLog().severe("Could not save config file " + fileName + Arrays.toString(e.getStackTrace()));
+            H0M3.getLog().severe("Could not save config file " + fileName);
+            e.printStackTrace();
         }
     }
 
@@ -56,7 +55,8 @@ public class ConfigFile {
             try {
                 Files.copy(resource, file.toPath());
             } catch (IOException e) {
-                H0M3.getLog().severe("Could not save default config file " + fileName + Arrays.toString(e.getStackTrace()));
+                H0M3.getLog().severe("Could not save default config file " + fileName);
+                e.printStackTrace();
             }
         }
     }

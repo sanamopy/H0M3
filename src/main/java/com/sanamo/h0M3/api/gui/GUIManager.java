@@ -32,9 +32,6 @@ public class GUIManager {
         return instance;
     }
 
-    public static GUIManager getInstance() {
-        return instance;
-    }
 
     private void registerListeners() {
         plugin.getServer().getPluginManager().registerEvents(new InventoryClickListener(), plugin);
