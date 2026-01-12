@@ -2,7 +2,24 @@ name: H0M3
 version: '1.0.0'
 main: com.sanamo.h0M3.H0M3
 api-version: '1.21'
-prefix: AS
+prefix: H0M3
 authors: [ KarterSanamo ]
-description: Smelt ores automatically when mined and give the player the smelted item.
+description: Home!
 website: logix.host
+commands:
+  sethome:
+    description: Sets a new home for the player
+    usage: /<command> <name>
+    aliases: [ ]
+  home:
+    description: Teleports the player to their home
+    usage: /<command> <name>
+    aliases: [ ]
+  deletehome:
+    description: Deletes a player's home
+    usage: /<command> <name>
+    aliases: [ delhome ]
+  homes:
+    description: Shows all of the player's homes
+    usage: /<command>
+    aliases: [ ]
