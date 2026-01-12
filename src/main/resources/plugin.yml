@@ -26,4 +26,8 @@ commands:
   renamehome:
     description: Renames a player's home
     usage: /<command> <name> <new_name>
+    aliases: [ changename ]
+  movehome:
+    description: Moves a home to the player's location
+    usage: /<command> <home>
     aliases: [ ]

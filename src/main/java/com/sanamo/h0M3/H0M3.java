@@ -63,6 +63,7 @@ public final class H0M3 extends JavaPlugin {
         commandManager.registerCommand(new SetHomeCommand(homeManager));
         commandManager.registerCommand(new HomesCommand(homeManager));
         commandManager.registerCommand(new RenameHomeCommand(homeManager));
+        commandManager.registerCommand(new MoveHomeCommand(homeManager));
     }
 
     private void registerListeners() {
