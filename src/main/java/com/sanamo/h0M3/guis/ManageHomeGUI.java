@@ -10,7 +10,6 @@ import com.sanamo.h0M3.managers.HomeManager;
 import com.sanamo.h0M3.models.Home;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -58,7 +57,7 @@ public class ManageHomeGUI extends GUI {
                 ))
                 .build();
         setItem(11, changeNameItem);
-        setClickHandler(11, this::changeName);
+        setClickHandler(11, event -> changeName());
 
         // Change material item
         ItemStack changeMaterialItem = new ItemBuilder(home.getMaterial())
@@ -71,7 +70,7 @@ public class ManageHomeGUI extends GUI {
                 ))
                 .build();
         setItem(12, changeMaterialItem);
-        setClickHandler(12, this::changeMaterial);
+        setClickHandler(12, event -> changeMaterial());
 
         // Change lore item
         List<String> lore = new ArrayList<>();
@@ -97,7 +96,7 @@ public class ManageHomeGUI extends GUI {
                 .build();
 
         setItem(13, changeLoreItem);
-        setClickHandler(13, this::changeLore);
+        setClickHandler(13, event -> changeLore());
 
         // Change location item
         ItemStack changeLocationItem = new ItemBuilder(Material.MAP)
@@ -110,7 +109,7 @@ public class ManageHomeGUI extends GUI {
                 ))
                 .build();
         setItem(14, changeLocationItem);
-        setClickHandler(14, this::changeLocation);
+        setClickHandler(14, event -> changeLocation());
 
         // Delete home item
         ItemStack deleteHomeItem = new ItemBuilder(Material.BARRIER)
@@ -123,7 +122,7 @@ public class ManageHomeGUI extends GUI {
                 ))
                 .build();
         setItem(15, deleteHomeItem);
-        setClickHandler(15, this::deleteHome);
+        setClickHandler(15, event -> deleteHome());
 
         // Back button item
         ItemStack backButtonItem = new ItemBuilder(Material.ARROW)
@@ -134,7 +133,7 @@ public class ManageHomeGUI extends GUI {
                 ))
                 .build();
         setItem(18, backButtonItem);
-        setClickHandler(18, this::backButton);
+        setClickHandler(18, event -> backButton());
     }
 
     private void changeName() {
@@ -240,7 +239,7 @@ public class ManageHomeGUI extends GUI {
         );
     }
 
-    private void backButton(InventoryClickEvent event) {
+    private void backButton() {
         player.closeInventory();
         HomesGUI homesGUI = new HomesGUI(homeManager, player);
         homesGUI.open(player);
