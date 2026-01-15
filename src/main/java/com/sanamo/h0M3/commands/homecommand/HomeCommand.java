@@ -1,9 +1,11 @@
-package com.sanamo.h0M3.commands;
+package com.sanamo.h0M3.commands.homecommand;
 
 import com.sanamo.h0M3.api.chat.ChatFormat;
 import com.sanamo.h0M3.api.command.CommandContext;
 import com.sanamo.h0M3.api.command.CoreCommand;
+import com.sanamo.h0M3.api.command.SubCommand;
 import com.sanamo.h0M3.api.command.annotations.PlayerOnly;
+import com.sanamo.h0M3.commands.homecommand.subcommands.*;
 import com.sanamo.h0M3.managers.HomeManager;
 import com.sanamo.h0M3.models.Home;
 import org.bukkit.entity.Player;
@@ -22,9 +24,27 @@ public class HomeCommand extends CoreCommand {
         super(
                 "home",
                 "Teleports a plyer to their home",
-                "/home <name>"
+                "/home [name|tp|rename|delete|setmaterial|setlore|edit|info|invite|uninvite|accept|visit]"
         );
         this.homeManager = homeManager;
+        registerSubCommands();
+    }
+
+    private void registerSubCommands() {
+        addSubCommand(new AcceptSubCommand(homeManager));
+        addSubCommand(new DeleteSubCommand(homeManager));
+        addSubCommand(new EditSubCommand(homeManager));
+        addSubCommand(new InfoSubCommand(homeManager));
+        addSubCommand(new InviteSubCommand(homeManager));
+        addSubCommand(new MoveSubCommand(homeManager));
+        addSubCommand(new RemovePlayerSubCommand(homeManager));
+        addSubCommand(new RenameSubCommand(homeManager));
+        addSubCommand(new SetLoreSubCommand(homeManager));
+        addSubCommand(new SetMaterialSubCommand(homeManager));
+        addSubCommand(new SetSubCommand(homeManager));
+        addSubCommand(new TpSubCommand(homeManager));
+        addSubCommand(new UnInviteSubCommand(homeManager));
+        addSubCommand(new VisitSubCommand(homeManager));
     }
 
     @Override
@@ -65,22 +85,28 @@ public class HomeCommand extends CoreCommand {
 
     @Override
     protected List<String> onTabComplete(CommandContext context) {
-        Player player = context.getPlayer();
-
         if (context.getArgCount() == 1) {
-            String partial = context.getArg(0, "").toLowerCase();
-            Map<String, Home> homes = homeManager.getHomes(player.getUniqueId());
-            if (homes != null) {
-                List<String> matches = new ArrayList<>();
+            String partial = context.getArg(0).toLowerCase();
+            List<String> matches = new ArrayList<>();
 
+            // Subcommands
+            for (SubCommand sub : getSubCommands()) {
+                if (sub.getName().startsWith(partial)) {
+                    matches.add(sub.getName());
+                }
+            }
+
+            // Homes
+            Map<String, Home> homes = homeManager.getHomes(context.getPlayer().getUniqueId());
+            if (homes != null) {
                 for (Home home : homes.values()) {
                     if (home.getDisplayName().toLowerCase().startsWith(partial)) {
                         matches.add(home.getDisplayName());
                     }
                 }
-
-                return matches;
             }
+
+            return matches;
         }
         return new ArrayList<>();
     }

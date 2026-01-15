@@ -87,4 +87,16 @@ public class CommandContext {
     public boolean hasArgs(int count) {
         return args.length >= count;
     }
+
+    public CommandContext shift(int amount) {
+        if (args.length <= amount) {
+            return new CommandContext(sender, label, new String[0]);
+        }
+
+        return new CommandContext(
+                sender,
+                label,
+                Arrays.copyOfRange(args, amount, args.length)
+        );
+    }
 }

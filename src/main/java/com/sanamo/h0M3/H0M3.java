@@ -4,7 +4,11 @@ import com.sanamo.h0M3.api.command.CommandManager;
 import com.sanamo.h0M3.api.gui.GUIManager;
 import com.sanamo.h0M3.api.logging.CoreLogger;
 import com.sanamo.h0M3.api.logging.LogLevel;
-import com.sanamo.h0M3.commands.*;
+import com.sanamo.h0M3.commands.DeleteHomeCommand;
+import com.sanamo.h0M3.commands.HomesCommand;
+import com.sanamo.h0M3.commands.SetHomeCommand;
+import com.sanamo.h0M3.commands.adminhomecommand.AdminHomeCommand;
+import com.sanamo.h0M3.commands.homecommand.HomeCommand;
 import com.sanamo.h0M3.listeners.PlayerJoinListener;
 import com.sanamo.h0M3.listeners.PlayerQuitListener;
 import com.sanamo.h0M3.listeners.TeleportMoveListener;
@@ -62,10 +66,7 @@ public final class H0M3 extends JavaPlugin {
         commandManager.registerCommand(new DeleteHomeCommand(homeManager));
         commandManager.registerCommand(new SetHomeCommand(homeManager));
         commandManager.registerCommand(new HomesCommand(homeManager));
-        commandManager.registerCommand(new RenameHomeCommand(homeManager));
-        commandManager.registerCommand(new MoveHomeCommand(homeManager));
-        commandManager.registerCommand(new EditHomeCommand(homeManager));
-        commandManager.registerCommand(new HomeInfoCommand(homeManager));
+        commandManager.registerCommand(new AdminHomeCommand(homeManager));
     }
 
     private void registerListeners() {

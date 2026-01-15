@@ -23,19 +23,7 @@ commands:
     description: Shows all of the player's homes
     usage: /<command>
     aliases: [ ]
-  renamehome:
-    description: Renames a player's home
-    usage: /<command> <name> <new_name>
-    aliases: [ changename ]
-  movehome:
-    description: Moves a home to the player's location
-    usage: /<command> <home>
-    aliases: [ ]
-  edithome:
-    description: Edits a player's home information
-    usage: /<command> <home>
-    aliases: [ ]
-  homeinfo:
-    description: Sends information on a player's home
-    usage: /<command> <home>
+  adminhome:
+    description: Allows administrators to edit various home information
+    usage: /<command>
     aliases: [ ]
